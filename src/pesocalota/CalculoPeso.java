@@ -54,4 +54,28 @@ public class CalculoPeso
 
         return pesoReto;
     }
+    
+    public float PesoGalv() {
+            float areaTotalCalota = (float) (2 * Math.PI * this.raioEsferico * 
+                    AlturaRaio(this.raioEsferico, this.diametroExterno));
+            float areaFuroCalota = (float) (2 * Math.PI * this.raioEsferico *
+                    AlturaRaio(this.raioEsferico, this.diametroFuro));
+            float areaRealCalota = areaTotalCalota - areaFuroCalota;
+
+            float areaBaseTotal = (float) (Math.PI * Math.pow(this.diametroExterno / 2, 2));
+            float areaBaseFuro = (float) (Math.PI * Math.pow(this.diametroFuro / 2, 2));
+            float areaBaseReal = areaBaseTotal - areaBaseFuro;
+
+            float perimetroFuro = (float) (2 * Math.PI * this.diametroFuro / 2);
+            float areaInternaFuro = perimetroFuro * (this.alturaCalota - 
+                    AlturaRaio(this.raioEsferico, this.diametroFuro));
+
+            float perimetroExterno = (float) (2 * Math.PI * this.diametroExterno / 2);
+            float areaExterna = perimetroExterno * (this.alturaCalota - 
+                    AlturaRaio(this.raioEsferico, this.diametroExterno));
+
+            float areaTotal = areaRealCalota + areaBaseReal + areaInternaFuro + areaExterna;
+
+            return (float)(areaTotal * 0.000000357);
+    }
 }
